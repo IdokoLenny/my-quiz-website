@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { MdOutlineDarkMode } from "react-icons/md";
 import { MdOutlineLightMode } from "react-icons/md";
 
@@ -10,12 +11,13 @@ function Header() {
     document.body.classList.toggle("dark");
   };
   return (
-    <header className="p-6 flex items-center justify-between shadow-lg dark:shadow-white gap-x-8 px-40">
-      <h1>TEST BODY</h1>
+    <header className="sticky top-0 z-50 bg-white dark:bg-[#0B192C] p-6 flex items-center justify-between shadow-lg gap-x-8 px-40">
+      <h1 className="dark:text-[#FF6500] font-bold text-xl">
+        <Link to="/">TEST BODY</Link>
+      </h1>
       <div className="flex gap-x-4">
         <button onClick={() => darkModeHandler()}>
-          {dark && <MdOutlineLightMode />}
-          {!dark && <MdOutlineDarkMode />}
+          {dark ? <MdOutlineLightMode /> : <MdOutlineDarkMode />}
         </button>
       </div>
     </header>
