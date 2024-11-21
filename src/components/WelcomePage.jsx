@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 function WelcomePage() {
   return (
-    <div className="flex mt-6">
+    <div className="flex flex-col sm:flex-row mt-6 p-4 text-xs sm:text-base">
       <div className="flex-1 p-6 text-center">
-        <h1 className="text-[30px] leading-[2] font-bold">
+        <h1 className="text-base sm:text-[30px] leading-[2] font-bold">
           Welcome to
           <span className="block uppercase">my React and Tailwind CSS</span>
-          <span className="block uppercase text-[40px]">Quiz Website</span>{" "}
+          <span className="block uppercase sm:text-[40px]">Quiz Website</span>{" "}
         </h1>
       </div>
       <div className="flex-1 p-5">

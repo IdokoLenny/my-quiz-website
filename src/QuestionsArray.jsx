@@ -1,37 +1,45 @@
-const QuestionsArray = [
-    {
-        question1: "what is a noun?",
-        options: [
-            "animal","place","things"
-        ],
-        answer: "animal"
+export const QuestionsArray = [
+    { 
+
     },
     {
-        question1: "what is a noun?",
+        id: "1",
+        question: "what is a noun?",
         options: [
-            "animal","place","things"
+            "a noun is a name of a person, animal, place or thing","place","things"
         ],
-        answer: "animal"
+        answer: "a noun is a name of a person, animal, place or thing"
     },
     {
-        question1: "what is a noun?",
+        id: "2",
+        question: "what is a pronoun?",
         options: [
-            "animal","place","things"
+            "pro animal","a pronoun is a word used in place of a noun","things"
         ],
-        answer: "animal"
+        answer: "a pronoun is a word used in place of a noun"
     },
     {
-        question1: "what is a noun?",
+        id: "3",
+        question: "what is a adverb?",
         options: [
-            "animal","place","things"
+            "adverb are words used in place of a noun","adverb are words used in place of a verb","things"
         ],
-        answer: "animal"
+        answer: "adverb are words used in place of a verb"
     },
     {
-        question1: "what is a noun?",
+        id: "4",
+        question: "what is a verb?",
         options: [
-            "animal","place","things"
+            "adverb animal","a verb is an anyhow word","a verb is an action word"
         ],
-        answer: "animal"
+        answer: "a verb is an action word"
+    },
+    {
+        id: "5",
+        question: "what is a adjective?",
+        options: [
+            "adjective animal","adjectives are words used to describe a noun","adjectives are words used to describe a verb"
+        ],
+        answer: "adjectives are words used to describe a noun"
     }
 ]
