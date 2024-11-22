@@ -11,7 +11,7 @@ import {Navigate} from "react-router-dom"
 
 const ShowCounter = ({ days, hours, minutes, seconds }) => {
   return (
-    <div className="flex text-center justify-end m-5 pr-5">
+    <div className="flex-1 flex sm:justify-center">
 
         {/* <DateTimeDisplay value={days} type={'Days'} isDanger={days <= 3} />
         <p>:</p> */}

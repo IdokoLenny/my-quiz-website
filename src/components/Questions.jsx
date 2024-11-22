@@ -8,6 +8,10 @@ function Questions() {
   const [yourAnswers, setYourAnswers] = useState([{id: 0, answer: ""}]);
   const [selectedOption, setSelectedOption] = useState("");
 
+  const [currentPageGroup, setCurrentPageGroup] = useState(1);
+  const questionsPerPageGroup = 10; // Group size
+
+
   useEffect(() => {
     const currentAnswer = yourAnswers.find(
       (answer) => answer.id === questionNumber
@@ -32,8 +36,11 @@ function Questions() {
     }
 
     setQuestionNumber(questionNumber + 1);
-    // setSelectedOption("")
+    
+    const newPageGroup = Math.ceil(questionNumber / questionsPerPageGroup); // Calculate the correct page group
+    // setCurrentPageGroup(newPageGroup);
 
+    questionNumber == 10 ? setCurrentPageGroup(newPageGroup + 1) : setCurrentPageGroup(newPageGroup);
   }
 
   function updateBackAnswer(newAnswer) {
@@ -53,7 +60,11 @@ function Questions() {
       
     }
     setQuestionNumber(questionNumber - 1);
-    // setSelectedOption("")
+    
+    const newPageGroup = Math.ceil(questionNumber / questionsPerPageGroup); // Calculate the correct page group
+    // setCurrentPageGroup(newPageGroup);
+
+    questionNumber == 11 ? setCurrentPageGroup(newPageGroup - 1) : setCurrentPageGroup(newPageGroup);
   }
 
   const handleOptionChange = (e) => {
@@ -65,18 +76,88 @@ function Questions() {
     setSelectedOption(option)
   };
 
+
+  const Pagination = () => {
+
+    const totalPages = QuestionsArray.length - 1; // Total number of questions
+  const totalPageGroups = Math.ceil(totalPages / questionsPerPageGroup);
+
+  // Current page group
+
+  // Calculate the page numbers for the current group
+  const startPage = (currentPageGroup - 1) * questionsPerPageGroup + 1;
+  const endPage = Math.min(currentPageGroup * questionsPerPageGroup, totalPages);
+
+  // Slice the array to get only the numbers for the current group
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1).slice(startPage - 1,endPage);
+
+  // Handlers for navigating between groups
+  const handlePageClick = (number) => {
+    setQuestionNumber(number); // Update the current question
+
+    const newPageGroup = Math.ceil(number / questionsPerPageGroup); // Calculate the correct page group
+    setCurrentPageGroup(newPageGroup);
+  };
+
+  const handleNextGroup = () => {
+    if (currentPageGroup < totalPageGroups) {
+      setCurrentPageGroup(currentPageGroup + 1);
+    }
+  };
+
+  const handlePreviousGroup = () => {
+    if (currentPageGroup > 1) {
+      setCurrentPageGroup(currentPageGroup - 1);
+    }
+  };
+
+  return (
+    <nav className="fixed z-50 w-full bg-white flex flex-col items-center mt-[60px] top-14 dark:bg-[#0B192C] dark:text-white">
+      <ul className="flex justify-center">
+        {currentPageGroup > 1 && (
+          <li className="border p-2 rounded-l-lg">
+            <button onClick={handlePreviousGroup}>{'<'}</button>
+          </li>
+        )}
+        {pageNumbers.map((number) => (
+          <li
+            key={number}
+            className={
+              questionNumber === number
+                ? "dark:text-white dark:bg-[#FF6500] bg-[#FF6500] border p-2 text-sm sm:text-base"
+                : "dark:bg-[#0B192C] dark:text-white bg-white border p-2 text-sm sm:text-base"
+            }
+          >
+            <button onClick={() => handlePageClick(number)}>{number}</button>
+          </li>
+        ))}
+        {currentPageGroup < totalPageGroups && (
+          <li className="border p-2 rounded-r-lg">
+            <button onClick={handleNextGroup} className="font-extrabold">{">"}</button>
+          </li>
+        )}
+      </ul>
+    </nav>
+  );
+
+    }
+
+
   return (
     <>
+
+      <Pagination />
+
     {questionNumber !== QuestionsArray.length ?
 
-    <div className="flex flex-col sm:flex-row gap-3 m-5 text-xs sm:text-base">
-      <div className="flex-1 p-5">
-        <h1 className="mb-5 mt-7">QUESTION </h1>
+    <div className="flex flex-col sm:flex-row gap-3 m-10 text-xs sm:text-base">
+      <div className="flex-1 p-5 mt-7">
+        <h1 className="mb-5 mt-10 sm:mt-7">QUESTION </h1>
         <p>
           {questionNumber}. {QuestionsArray[questionNumber].question}
         </p>
       </div>
-      <div className="flex-1 p-5">
+      <div className="flex-1 p-5 sm:mt-7">
         <h1 className="mb-5 sm:mt-7">OPTIONS</h1>
         <ol>
           {QuestionsArray[questionNumber].options.map((option) => {
@@ -115,7 +196,7 @@ function Questions() {
           </button>
         </div>
       </div>
-    </div> : <Navigate to="/confirm" state={yourAnswers} />}
+    </div> : <Navigate to="/result" state={yourAnswers} />}
 
     </>
   );

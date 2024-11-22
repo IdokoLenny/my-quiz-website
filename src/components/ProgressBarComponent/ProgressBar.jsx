@@ -1,7 +1,7 @@
 import React from 'react';
 import CountdownTimer from "./CountdownTimer"
 
-import ConfirmPage from '../../routes/ConfirmPage';
+// import Pagination from '../Pagination';
 
 export default function App() {
   const FORTY_FIVE_MINS_IN_MS = 45 * 60 * 1000;
@@ -10,8 +10,8 @@ export default function App() {
   const dateTimeAfterFortyFiveMinutes = NOW_IN_MS + FORTY_FIVE_MINS_IN_MS;
 
   return (
-    <div className='fixed bg-white w-full text-xs sm:text-base dark:bg-[#0B192C] dark:text-white'>
-      {/* <ConfirmPage /> */}
+    <div className='fixed bg-white w-full top-16 text-xs sm:text-base dark:bg-[#0B192C] dark:text-white flex flex-col sm:flex-row gap-3 items-center sm:justify-around p-5 '>
+      {/* <Pagination /> */}
       <CountdownTimer targetDate={dateTimeAfterFortyFiveMinutes} />
     </div>
   );

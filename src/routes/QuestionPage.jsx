@@ -3,8 +3,6 @@ import Header from "../components/Header";
 import Questions from "../components/Questions";
 import Footer from "../components/Footer";
 import ProgressBar from "../components/ProgressBarComponent/ProgressBar";
-// import { useCountdown } from "../components/ProgressBarComponent/useCountdown";
-// import ResultPage from "./ResultPage";
 
 function QuestionPage() {
   return (
