@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, Navigate } from "react-router-dom";
 import { QuestionsArray } from "../QuestionsArray";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -7,6 +7,13 @@ function Questions() {
   const [questionNumber, setQuestionNumber] = useState(1);
   const [yourAnswers, setYourAnswers] = useState([{id: 0, answer: ""}]);
   const [selectedOption, setSelectedOption] = useState("");
+
+  useEffect(() => {
+    const currentAnswer = yourAnswers.find(
+      (answer) => answer.id === questionNumber
+    );
+    setSelectedOption(currentAnswer ? currentAnswer.answer : "");
+  }, [questionNumber, yourAnswers]);
 
   function updateAnswer(newAnswer) {
 
@@ -25,7 +32,7 @@ function Questions() {
     }
 
     setQuestionNumber(questionNumber + 1);
-    setSelectedOption("")
+    // setSelectedOption("")
 
   }
 
@@ -46,18 +53,22 @@ function Questions() {
       
     }
     setQuestionNumber(questionNumber - 1);
-    setSelectedOption("")
+    // setSelectedOption("")
   }
 
   const handleOptionChange = (e) => {
     const value = e.target.value;
     setSelectedOption(value);
-  };
+  }
+  
   const handleClick = (option) => {
-    setSelectedOption(option);
+    setSelectedOption(option)
   };
 
   return (
+    <>
+    {questionNumber !== QuestionsArray.length ?
+
     <div className="flex flex-col sm:flex-row gap-3 m-5 text-xs sm:text-base">
       <div className="flex-1 p-5">
         <h1 className="mb-5 mt-7">QUESTION </h1>
@@ -99,11 +110,14 @@ function Questions() {
             className="bg-[#FF6500] p-2 px-5 rounded-full"
             onClick={() => updateAnswer({id: questionNumber, answer: selectedOption})}
           >
-            <Link to={questionNumber + 1 === QuestionsArray.length ? "/result" : "/questions"} state={yourAnswers}>{questionNumber +1 === QuestionsArray.length ? "Submit" : "Next >"}</Link>
+            {/* <Link to={questionNumber + 1 === QuestionsArray.length ? "/result" : "/questions"} state={yourAnswers}>{questionNumber +1 === QuestionsArray.length ? "Submit" : "Next >"}</Link> */}
+            <Link to={"/questions"} state={yourAnswers}>{questionNumber +1 === QuestionsArray.length ? "Submit" : "Next >"}</Link>
           </button>
         </div>
       </div>
-    </div>
+    </div> : <Navigate to="/confirm" state={yourAnswers} />}
+
+    </>
   );
 }
 

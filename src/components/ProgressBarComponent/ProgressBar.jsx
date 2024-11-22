@@ -1,6 +1,8 @@
 import React from 'react';
 import CountdownTimer from "./CountdownTimer"
 
+import ConfirmPage from '../../routes/ConfirmPage';
+
 export default function App() {
   const FORTY_FIVE_MINS_IN_MS = 45 * 60 * 1000;
   const NOW_IN_MS = new Date().getTime();
@@ -9,6 +11,7 @@ export default function App() {
 
   return (
     <div className='fixed bg-white w-full text-xs sm:text-base dark:bg-[#0B192C] dark:text-white'>
+      {/* <ConfirmPage /> */}
       <CountdownTimer targetDate={dateTimeAfterFortyFiveMinutes} />
     </div>
   );
