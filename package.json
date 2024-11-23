@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://idokolenny.github.io/my-quiz-website/",
+  "homepage": "https://idokolenny.github.io/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
