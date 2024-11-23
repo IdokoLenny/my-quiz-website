@@ -8,5 +8,8 @@ export const router = createBrowserRouter(
     { path: "/", element: <App /> },
     { path: "/questions", element: <QuestionPage /> },
     { path: "/result", element: <ResultPage /> },
-  ]
+  ],
+  {
+    basename : "/my-quiz-website"
+  }
 );
