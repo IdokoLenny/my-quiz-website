@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import WelcomePage from "./components/WelcomePage"
 import Footer from './components/Footer'
 import Header from './components/Header'

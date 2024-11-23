@@ -8,7 +8,7 @@ function WelcomePage() {
         <h1 className="text-base sm:text-[30px] leading-[2] font-bold">
           Welcome to
           <span className="block uppercase">my React and Tailwind CSS</span>
-          <span className="block uppercase sm:text-[40px]">Quiz Website</span>{" "}
+          <span className="block uppercase sm:text-[40px]">Quiz Website</span>
         </h1>
       </div>
       <div className="flex-1 p-5">

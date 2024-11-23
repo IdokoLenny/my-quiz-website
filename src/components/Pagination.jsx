@@ -1,45 +1,79 @@
-import React from 'react'
+import React from "react";
+import { QuestionsArray } from "../QuestionsArray";
 
-const Pagination = () => {
+const Pagination = ({
+  setQuestionNumber,
+  questionNumber,
+  questionsPerPageGroup,
+  currentPageGroup,
+  setCurrentPageGroup,
+}) => {
+  const totalPages = QuestionsArray.length - 1; // Total number of questions
+  const totalPageGroups = Math.ceil(totalPages / questionsPerPageGroup);
+
+  // Calculate the page numbers for the current group
+  const startPage = (currentPageGroup - 1) * questionsPerPageGroup + 1;
+  const endPage = Math.min(
+    currentPageGroup * questionsPerPageGroup,
+    totalPages
+  );
+
+  // Slice the array to get only the numbers for the current group
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1).slice(
+    startPage - 1,
+    endPage
+  );
+
+  // Handlers for navigating between groups
+  const handlePageClick = (number) => {
+    setQuestionNumber(number); // Update the current question
+
+    const newPageGroup = Math.ceil(number / questionsPerPageGroup); // Calculate the correct page group
+    setCurrentPageGroup(newPageGroup);
+  };
+
+  const handleNextGroup = () => {
+    if (currentPageGroup < totalPageGroups) {
+      setCurrentPageGroup(currentPageGroup + 1);
+    }
+  };
+
+  const handlePreviousGroup = () => {
+    if (currentPageGroup > 1) {
+      setCurrentPageGroup(currentPageGroup - 1);
+    }
+  };
 
   return (
-    <nav className="flex-1 flex sm:justify-center">
-
-    <ul className="flex items-center -space-x-px h-8 text-sm">
-      <li>
-        <a href="#" className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <span className="sr-only">Previous</span>
-          <svg className="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 1 1 5l4 4"/>
-          </svg>
-        </a>
-      </li>
-      <li>
-        <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-      </li>
-      <li>
-        <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-      </li>
-      <li>
-        <a href="#" aria-current="page" className="z-10 flex items-center justify-center px-3 h-8 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-      </li>
-      <li>
-        <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-      </li>
-      <li>
-        <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-      </li>
-      <li>
-        <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-          <span className="sr-only">Next</span>
-          <svg className="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
-          </svg>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  )
-}
+    <nav className="fixed z-50 w-full bg-white flex flex-col items-center mt-[60px] top-14 dark:bg-[#0B192C] dark:text-white">
+      <ul className="flex justify-center">
+        {currentPageGroup > 1 && (
+          <li className="border p-2 rounded-l-lg">
+            <button onClick={handlePreviousGroup}>{"<"}</button>
+          </li>
+        )}
+        {pageNumbers.map((number) => (
+          <li
+            key={number}
+            className={
+              questionNumber === number
+                ? "dark:text-white dark:bg-[#FF6500] bg-[#FF6500] border p-2 text-sm sm:text-base"
+                : "dark:bg-[#0B192C] dark:text-white bg-white border p-2 text-sm sm:text-base"
+            }
+          >
+            <button onClick={() => handlePageClick(number)}>{number}</button>
+          </li>
+        ))}
+        {currentPageGroup < totalPageGroups && (
+          <li className="border p-2 rounded-r-lg">
+            <button onClick={handleNextGroup} className="font-extrabold">
+              {">"}
+            </button>
+          </li>
+        )}
+      </ul>
+    </nav>
+  );
+};
 
 export default Pagination;

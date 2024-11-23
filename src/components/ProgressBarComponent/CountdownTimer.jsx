@@ -3,19 +3,9 @@ import DateTimeDisplay from './DateTimeDisplay';
 import { useCountdown } from './useCountdown';
 import {Navigate} from "react-router-dom"
 
-// const ExpiredNotice = () => {
-//   return (
-//       <p className='text-red-400 text-right m-5 pr-20'>OPPS! TIME UP</p>   
-//   );
-// };
-
-const ShowCounter = ({ days, hours, minutes, seconds }) => {
+const ShowCounter = ({hours, minutes, seconds }) => {
   return (
     <div className="flex-1 flex sm:justify-center">
-
-        {/* <DateTimeDisplay value={days} type={'Days'} isDanger={days <= 3} />
-        <p>:</p> */}
-        
         <h1 className={minutes < 5 ? 'text-red-400 mr-5' : 'text-black-400 mr-5'}>TIME  </h1>
         <DateTimeDisplay value={hours} type={hours >= 1 ? 'Hours' : "Hour"} isDanger={minutes < 5} />
         <p className={minutes < 5 ? 'text-red-400' : 'text-black-400'}>:</p>
@@ -28,14 +18,13 @@ const ShowCounter = ({ days, hours, minutes, seconds }) => {
 
 
 const CountdownTimer = ({ targetDate }) => {
-  const [days, hours, minutes, seconds] = useCountdown(targetDate);
+  const [ hours, minutes, seconds] = useCountdown(targetDate);
 
-  if (days + hours + minutes + seconds <= 0) {
+  if (hours + minutes + seconds <= 0) {
     return <Navigate to="/result" />
   } else {
     return (
       <ShowCounter
-        days={days}
         hours={hours}
         minutes={minutes}
         seconds={seconds}
