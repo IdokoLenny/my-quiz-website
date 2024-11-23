@@ -1,6 +1,6 @@
 {
   "name": "my-quiz-website",
-  "private": false,
+  "private": true,
   "version": "0.0.0",
   "type": "module",
   "homepage": "https://idokolenny.github.io/my-quiz-website/",
