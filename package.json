@@ -2,8 +2,8 @@
   "name": "my-quiz-website",
   "private": true,
   "version": "0.0.0",
-  "homepage" : "https://idokolenny.github.io/my-quiz-website/",
   "type": "module",
+  "homepage": "https://idokolenny.github.io/my-quiz-website/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
